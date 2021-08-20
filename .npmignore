@@ -1,4 +1,7 @@
 .idea
+.github
 node_modules
 exec
 src
+demo.gif
+yarn.lock
