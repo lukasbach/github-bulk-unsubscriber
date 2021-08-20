@@ -1,10 +1,10 @@
 {
-  "name": "cli-ts-commander-starter",
+  "name": "github-bulk-unsubscriber",
   "version": "0.0.2",
-  "description": "Template repo for a Typescript-based CLI tool with commander",
+  "description": "Unsubscribe from large quantities of Github repositories in an instance. Specify the repos to unwatch with a Regex.",
   "main": "dist/index.js",
   "bin": "dist/index.js",
-  "repository": "https://github.com/lukasbach/cli-ts-commander-starter",
+  "repository": "https://github.com/lukasbach/github-bulk-unsubscriber",
   "author": "Lukas Bach",
   "license": "MIT",
   "files": [
