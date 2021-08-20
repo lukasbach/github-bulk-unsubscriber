@@ -102,12 +102,31 @@ const throttle = {
   ]);
 
   if (confirmation) {
+    const failedRepos: string[] = [];
     console.log('Unwatching repositories...');
 
     for (const fullRepo of unsubscribeRepos) {
       const [owner, repo] = fullRepo.split('/');
-      console.log(`Unwatching ${fullRepo}`);
-      await octokit.activity.deleteRepoSubscription({ owner, repo });
+      try {
+        await octokit.activity.deleteRepoSubscription({ owner, repo });
+        console.log(`Unwatched ${fullRepo}`);
+        await new Promise(r => setTimeout(r, 300));
+      } catch(e) {
+        console.log(`Failed to unwatch ${fullRepo}`);
+        failedRepos.push(fullRepo);
+      }
+    }
+
+    if (failedRepos.length > 0) {
+      for (const repo of failedRepos) {
+        console.log(`${failedRepos} was not unwatched.`);
+      }
+
+      console.log(`Unwatched ${unsubscribeRepos.length - failedRepos.length}, ${failedRepos.length} ` +
+        'repos failed to be unwatched. This may have been caused by API limits. You can try the process ' +
+        'with the same matcher to unwatch from the remaining repos.')
+    } else {
+      console.log(`Successfully unwatched ${unsubscribeRepos.length} repositories`);
     }
   } else {
     console.log('Aborted. Your watched repositories were not changed.');
