@@ -1,6 +1,6 @@
 {
   "name": "cli-ts-commander-starter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Template repo for a Typescript-based CLI tool with commander",
   "main": "dist/index.js",
   "bin": "dist/index.js",
