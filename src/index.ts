@@ -9,9 +9,7 @@ const Octokit = OriginalOctokit.plugin(throttling);
 
 const throttle = {
   onRateLimit: (retryAfter: number, options: any, octokit: any) => {
-    octokit.log.warn(
-      `Request quota exhausted for request ${options.method} ${options.url}`
-    );
+    octokit.log.warn(`Request quota exhausted for request ${options.method} ${options.url}`);
 
     if (options.request.retryCount === 10) {
       // only retries once
@@ -21,9 +19,7 @@ const throttle = {
   },
   onAbuseLimit: (retryAfter: number, options: any, octokit: any) => {
     // does not retry, only logs a warning
-    octokit.log.warn(
-      `Abuse detected for request ${options.method} ${options.url}`
-    );
+    octokit.log.warn(`Abuse detected for request ${options.method} ${options.url}`);
   },
 };
 
@@ -32,33 +28,36 @@ const throttle = {
     {
       type: 'text',
       name: 'auth',
-      message: 'Github API Key. You can generate the token at https://github.com/settings/tokens/new. ' +
+      message:
+        'Github API Key. You can generate the token at https://github.com/settings/tokens/new. ' +
         'The token needs the `user` permission. Make sure the token has access to the organizations, whose ' +
         'repos you want to unwatch, which might require you to enable SSO for that organization.',
     },
     {
       type: 'text',
       name: 'matcher',
-      message: 'Provide a regex that matches the repos that you want to unsubscribe. ' +
+      message:
+        'Provide a regex that matches the repos that you want to unsubscribe. ' +
         'Repos are named `organization/repo-name`. You will be able to review the list ' +
         'of matched repos before they are unwatched. You can for example use the input "github/*" ' +
-        'to unsubscribe from all repos within the Github organization.'
-    }
+        'to unsubscribe from all repos within the Github organization.',
+    },
   ]);
 
   console.log('Fetching your watched repos from Github...');
 
   const octokit = new Octokit({ auth, throttle });
-  const watchedRepos: string[] = await octokit.paginate(
-    'GET /user/subscriptions',
-    response => response.data.map(repo => repo.full_name)
+  const watchedRepos: string[] = await octokit.paginate('GET /user/subscriptions', response =>
+    response.data.map(repo => repo.full_name)
   );
 
   const matcherRegex = new RegExp(matcher);
   const matchedRepos = watchedRepos.filter(repo => matcherRegex.test(repo));
 
-  console.log(`You are currently watching ${watchedRepos.length} repos, from which the following ${matchedRepos.length} ` +
-    `repos match your regex: ${matchedRepos.join(', ')}`);
+  console.log(
+    `You are currently watching ${watchedRepos.length} repos, from which the following ${matchedRepos.length} ` +
+      `repos match your regex: ${matchedRepos.join(', ')}`
+  );
 
   let unsubscribeRepos: string[] = [];
 
@@ -79,7 +78,8 @@ const throttle = {
       {
         type: 'multiselect',
         name: 'unsubscribeReposSelection',
-        message: `You are currently watching ${watchedRepos.length} repos, ${matchedRepos.length} of which match your regex. ` +
+        message:
+          `You are currently watching ${watchedRepos.length} repos, ${matchedRepos.length} of which match your regex. ` +
           'Choose which of those repositories you want to unsubscribe to.',
         choices: matchedRepos.map(repo => ({ title: repo, value: repo, selected: true })),
       },
@@ -95,7 +95,8 @@ const throttle = {
     {
       type: 'confirm',
       name: 'confirmation',
-      message: `Are you sure you want to unsubscribe from the ${unsubscribeRepos.length} repositories listed above? ` +
+      message:
+        `Are you sure you want to unsubscribe from the ${unsubscribeRepos.length} repositories listed above? ` +
         'This is the final confirmation, after this the repositories will be unwatched. There is no undo!',
     },
   ]);
@@ -108,7 +109,6 @@ const throttle = {
       await octokit.request('DELETE /repos/{owner}/{repo}/subscription', { owner, repo });
       console.log(`Unwatched ${fullRepo}`);
     }
-
   } else {
     console.log('Aborted. Your watched repositories were not changed.');
   }
