@@ -1,6 +1,6 @@
 {
   "name": "github-bulk-unsubscriber",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Unsubscribe from large quantities of Github repositories in an instance. Specify the repos to unwatch with a Regex.",
   "main": "dist/index.js",
   "bin": "dist/index.js",
