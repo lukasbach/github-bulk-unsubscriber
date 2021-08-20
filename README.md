@@ -1,7 +1,6 @@
 # github-bulk-unsubscriber
 
 ![Pretty](https://github.com/lukasbach/github-bulk-unsubscriber/workflows/Pretty/badge.svg)
-![Testing](https://github.com/lukasbach/github-bulk-unsubscriber/workflows/Testing/badge.svg)
 ![Publish](https://github.com/lukasbach/github-bulk-unsubscriber/workflows/Publish/badge.svg)
 
 > Unsubscribe from large quantities of Github repositories in an instance. Specify the repos to unwatch with a Regex.

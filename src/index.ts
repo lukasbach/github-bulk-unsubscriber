@@ -39,7 +39,7 @@ const throttle = {
       message:
         'Provide a regex that matches the repos that you want to unsubscribe. ' +
         'Repos are named `organization/repo-name`. You will be able to review the list ' +
-        'of matched repos before they are unwatched. You can for example use the input "github/*" ' +
+        'of matched repos before they are unwatched. You can for example use the input "^github/" ' +
         'to unsubscribe from all repos within the Github organization.',
     },
   ]);
@@ -104,10 +104,10 @@ const throttle = {
   if (confirmation) {
     console.log('Unwatching repositories...');
 
-    for (const fullRepo in unsubscribeRepos) {
+    for (const fullRepo of unsubscribeRepos) {
       const [owner, repo] = fullRepo.split('/');
-      await octokit.request('DELETE /repos/{owner}/{repo}/subscription', { owner, repo });
-      console.log(`Unwatched ${fullRepo}`);
+      console.log(`Unwatching ${fullRepo}`);
+      await octokit.activity.deleteRepoSubscription({ owner, repo });
     }
   } else {
     console.log('Aborted. Your watched repositories were not changed.');
