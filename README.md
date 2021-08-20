@@ -18,7 +18,7 @@ You will need a Github Access token to use the tool. You can generate the token 
 The token needs the `notification` and `repo` permission. Make sure the token has access to the organizations, whose
 repos you want to unwatch, which might require you to enable SSO for that organization.
 
-![alt text](https://github.com/lukasbach/github-bulk-unsubscriber/ 'Demo Image')
+![alt text](https://raw.githubusercontent.com/lukasbach/github-bulk-unsubscriber/main/demo.gif 'Demo Image')
 
 ## How to use
 
