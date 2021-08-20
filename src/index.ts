@@ -111,7 +111,7 @@ const throttle = {
         await octokit.activity.deleteRepoSubscription({ owner, repo });
         console.log(`Unwatched ${fullRepo}`);
         await new Promise(r => setTimeout(r, 300));
-      } catch(e) {
+      } catch (e) {
         console.log(`Failed to unwatch ${fullRepo}`);
         failedRepos.push(fullRepo);
       }
@@ -122,9 +122,11 @@ const throttle = {
         console.log(`${failedRepos} was not unwatched.`);
       }
 
-      console.log(`Unwatched ${unsubscribeRepos.length - failedRepos.length}, ${failedRepos.length} ` +
-        'repos failed to be unwatched. This may have been caused by API limits. You can try the process ' +
-        'with the same matcher to unwatch from the remaining repos.')
+      console.log(
+        `Unwatched ${unsubscribeRepos.length - failedRepos.length}, ${failedRepos.length} ` +
+          'repos failed to be unwatched. This may have been caused by API limits. You can try the process ' +
+          'with the same matcher to unwatch from the remaining repos.'
+      );
     } else {
       console.log(`Successfully unwatched ${unsubscribeRepos.length} repositories`);
     }
