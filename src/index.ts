@@ -30,7 +30,7 @@ const throttle = {
       name: 'auth',
       message:
         'Github API Key. You can generate the token at https://github.com/settings/tokens/new. ' +
-        'The token needs the `user` permission. Make sure the token has access to the organizations, whose ' +
+        'The token needs the `notification` and `repo` permissions. Make sure the token has access to the organizations, whose ' +
         'repos you want to unwatch, which might require you to enable SSO for that organization.',
     },
     {
