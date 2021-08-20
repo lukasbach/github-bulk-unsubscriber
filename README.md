@@ -1,53 +1,34 @@
-# CLI Typescript Commander Starter
+# github-bulk-unsubscriber
 
-![Pretty](https://github.com/lukasbach/cli-ts-commander-starter/workflows/Pretty/badge.svg)
-![Testing](https://github.com/lukasbach/cli-ts-commander-starter/workflows/Testing/badge.svg)
-![Publish](https://github.com/lukasbach/cli-ts-commander-starter/workflows/Publish/badge.svg)
+![Pretty](https://github.com/lukasbach/github-bulk-unsubscriber/workflows/Pretty/badge.svg)
+![Testing](https://github.com/lukasbach/github-bulk-unsubscriber/workflows/Testing/badge.svg)
+![Publish](https://github.com/lukasbach/github-bulk-unsubscriber/workflows/Publish/badge.svg)
 
-A template repository for CLI tools based on Typescript and CommanderJs. Features
+> Unsubscribe from large quantities of Github repositories in an instance. Specify the repos to unwatch with a Regex.
 
-- Test setup with AVA
-- Prettier setup
-- Setup with Yarn
-- Commander code template that automatically reads the version from the package.json file
-- Dev `yarn start` command with `ts-node`
-- Bundles native executables with `pkg` for Windows, Mac OS and linux
-- Github Actions CI Pipeline that
-  - builds app and runs tests
-  - checks prettier
-  - bundles app into native binaries and deploys them as a GitHub release
-  - deploys the package to NPM
+When you join an organization in Github, you automatically start watching all repositories that you gain
+access to (unless previously disabled in your settings). For large organizations, this can make you watch
+hundreds or thousands of repositories, making your Github notification overview pretty much useless, when
+you start receiving notifications every couple of seconds for repositories you don't actually work on.
 
-Example repo: https://github.com/lukasbach/json-extract-path
+This tool allows you to unwatch large numbers of repositories by specifying a regex that matches the repositories
+to unwatch. The tool will allow you to finetune your selection afterwards, and carefully ask you to review
+your selection before the selected repositories are unsubscribed from.
 
-## Setup template
+You will need a Github Access token to use the tool. You can generate the token at https://github.com/settings/tokens/new.
+The token needs the `notification` and `repo` permission. Make sure the token has access to the organizations, whose
+repos you want to unwatch, which might require you to enable SSO for that organization.
 
-- Clone the template via the _Use this template_ button or by clicking
-  [here](https://github.com/lukasbach/cli-ts-commander-starter/generate).
-- Add a secret to GitHub with the name `npm_token` to allow NPM releases
-- Push tags with the format `v0.0.0` to automatically publish new releases.
 
 ## How to use
 
-Install globally via
+Run
 
-    npm install -g {TOOLNAME}
+    npx github-bulk-unsubscriber
 
-or directly use via
-
-    npx {TOOLNAME}
+in your terminal to start the interactive unsubscription process. You need NodeJS installed.
 
 You can also [download a prebuilt binary](https://github.com/lukasbach/cli-ts-commander-starter/releases) and run that.
-
-Usage:
-
-    Usage: npx {TOOLNAME} [options]
-
-    Options:
-    -V, --version            output the version number
-    -s, --small              small pizza size
-    -p, --pizza-type <type>  flavour of pizza
-    -h, --help               display help for command
 
 ## How to develop
 
